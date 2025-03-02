@@ -76,5 +76,6 @@ export const collectionsData: collectionData[] = [
         src: "/slide4.png",
         alt: "",
         title: "As the Old Sing, So Pipe the Young",
+        artist: "Jan Steen, 1665",
     },
 ];

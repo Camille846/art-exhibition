@@ -38,31 +38,39 @@ body {
 }
 
 .tile:nth-child(1){
-  grid-column: span 4;
+  grid-column: span 3;
   grid-row: span 2;
 }
 
 .tile:nth-child(2),
 .tile:nth-child(3),
-.tile:nth-child(7){
-  grid-column: span 2;
-}
-
 .tile:nth-child(4),
-.tile:nth-child(5){
+.tile:nth-child(5),
+.tile:nth-child(7){
   grid-column: span 3;
 }
 
-.tile:nth-child(6){
-  grid-column: span 4;
+.tile:nth-child(6),
+.tile:nth-child(8),
+.tile:nth-child(9){
+  grid-column: span 3;
   grid-row: span 2;
 }
 
 .tile:nth-child(10),
 .tile:nth-child(11),
 .tile:nth-child(12){
-  grid-column: span 2;
-  grid-row: span 2;
+  grid-column: span 3;
+}
+
+.tile:hover{
+    cursor: pointer;
+    /*scale: 1.1;*/
+    /*z-index: 1000;*/
+}
+
+.tile:hover > div{
+  opacity: 100;
 }
 
 @media screen and (max-width: 650px){
