@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Art Exhibition
 
-This is a simple art exhibition website that displays a list of art pieces for an art exhibition museum. You can get a ticket and visit the art gallery. The website is built using Next.js and Tailwind CSS.
+This is a simple art exhibition website that displays a list of art pieces for an art exhibition museum. You can get a ticket and visit the art gallery.
 
 
 ## Built With
