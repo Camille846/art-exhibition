@@ -22,7 +22,7 @@ export const NavBar = () => {
                 <div className="flex justify-between mx-[41px] items-center">
                     <div className="flex items-center gap-[40px] select-none">
                         <Link
-                            href="#"
+                            href="/"
                             legacyBehavior
                             className="scroll-mt-[80px] transition-all duration-300 ease-in-out"
                         >
