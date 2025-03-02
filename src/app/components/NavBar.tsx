@@ -1,16 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
 import { FaGrip, FaXmark } from "react-icons/fa6";
 import { useState } from "react";
 
-interface NavBarProps {
-    heroRef: React.RefObject<HTMLDivElement>;
-}
-
-export const NavBar: React.FC<NavBarProps> = () => {
+export const NavBar = () => {
     const [menu, setMenu] = useState(false);
     const toggleMenu = () => {
         setMenu(!menu);
@@ -27,7 +22,7 @@ export const NavBar: React.FC<NavBarProps> = () => {
                 <div className="flex justify-between mx-[41px] items-center">
                     <div className="flex items-center gap-[40px] select-none">
                         <Link
-                            href="#hero"
+                            href="#"
                             legacyBehavior
                             className="scroll-mt-[80px] transition-all duration-300 ease-in-out"
                         >
@@ -39,7 +34,7 @@ export const NavBar: React.FC<NavBarProps> = () => {
                         </Link>
                     </div>
                     <div className="flex gap-4">
-                        <Link href="/collection" legacyBehavior>
+                        <Link href="/collections" legacyBehavior>
                             <a>
                                 <p
                                     className={`text-white hover:text-secondary px-4 py-2 cursor-pointer flex items-center gap-2 hover:font-bold font-medium transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none`}
@@ -67,9 +62,6 @@ export const NavBar: React.FC<NavBarProps> = () => {
                 } `}
             >
                 <div className="flex justify-between mx-[10px]">
-                    <div className="flex gap-[50px] text-[16px] items-center select-none">
-                        <Image src="/logo.svg" width={80} height={80} alt="logo" />
-                    </div>
                     <div className="flex justify-center items-center text-center gap-[40px]">
                         {menu ? (
                             <FaXmark
