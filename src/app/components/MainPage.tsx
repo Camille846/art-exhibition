@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { mainPageData } from "../data/mainPageData";
+import Link from "next/link";
 
 function MainPage() {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -71,15 +72,19 @@ function MainPage() {
                         )}
                     </div>
                     <div className="flex gap-5 2xl:mt-10">
-                        <button
-                            className="bg-secondary text-black font-semibold px-4 rounded-md hover:opacity-80 cursor-pointer">visit
-                            now
-                        </button>
-                        <button
-                            className="text-white font-semibold px-4 py-2 rounded-md border-2 border-white flex gap-2 items-center hover:opacity-80 cursor-pointer">
-                            discover more
-                            <FaArrowRightLong/>
-                        </button>
+                        <Link href={"/tickets"} legacyBehavior>
+                            <button
+                                className="bg-secondary text-black font-semibold px-4 rounded-md hover:opacity-80 cursor-pointer">
+                                visit now
+                            </button>
+                        </Link>
+                        <Link href={"/collections"} legacyBehavior>
+                            <button
+                                className="text-white font-semibold px-4 py-2 rounded-md border-2 border-white flex gap-2 items-center hover:opacity-80 cursor-pointer">
+                                discover more
+                                <FaArrowRightLong/>
+                            </button>
+                        </Link>
                     </div>
                     <div
                         className="mt-5 2xl:mt-10 flex gap-2 lg:flex-row max-md:grid max-md:grid-cols-3 max-md:mb-20"
