@@ -1,4 +1,5 @@
 import {FaArrowRightLong} from "react-icons/fa6";
+import Link from "next/link";
 
 interface TicketType {
     name: string
@@ -11,9 +12,11 @@ interface ReceiptProps {
     selectedDate?: Date
     tickets: TicketType[]
     onNextStep: () => void
+    onButtonClick?: () => void
+    buttonText?: string
 }
 
-export function Receipt({ selectedDate = new Date(), tickets = [], onNextStep }: ReceiptProps) {
+export function Receipt({ selectedDate = new Date(), tickets = [], onNextStep, onButtonClick, buttonText = "Next" }: ReceiptProps) {
     const total = tickets.reduce((sum, ticket) => sum + ticket.price * ticket.quantity, 0)
     const hasTickets = tickets.some((ticket) => ticket.quantity > 0)
 
@@ -54,13 +57,15 @@ export function Receipt({ selectedDate = new Date(), tickets = [], onNextStep }:
                 </div>
             </div>
 
-            <button
-                className="flex items-center justify-between px-6 font-bold text-xl w-full py-3 px-4 mt-4 rounded-sm transition-colors border-2 border-secondary cursor-pointer bg-navBg bg-secondary text-black hover:bg-navBg hover:text-secondary hover:border-secondary"
-                onClick={onNextStep}
-            >
-                Next
-                <FaArrowRightLong />
-            </button>
+            <Link href={"/personalInfo"} legacyBehavior>
+                <button
+                    className="flex items-center justify-between px-6 font-bold text-xl w-full py-3 px-4 mt-4 rounded-sm transition-colors border-2 border-secondary cursor-pointer bg-navBg bg-secondary text-black hover:bg-navBg hover:text-secondary hover:border-secondary"
+                    onClick={onButtonClick || onNextStep}
+                >
+                    {buttonText}
+                    <FaArrowRightLong />
+                </button>
+            </Link>
         </>
     )
 }
