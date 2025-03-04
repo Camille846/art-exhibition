@@ -1,24 +1,13 @@
-import {FaArrowRightLong} from "react-icons/fa6";
-import Link from "next/link";
+'use client'
+import { useBooking } from "@/context/BookingContext";
+import Button from "@/app/components/Button";
+import { usePathname } from "next/navigation";
 
-interface TicketType {
-    name: string
-    description: string
-    price: number
-    quantity: number
-}
-
-interface ReceiptProps {
-    selectedDate?: Date
-    tickets: TicketType[]
-    onNextStep: () => void
-    onButtonClick?: () => void
-    buttonText?: string
-}
-
-export function Receipt({ selectedDate = new Date(), tickets = [], onNextStep, onButtonClick, buttonText = "Next" }: ReceiptProps) {
+export function Receipt() {
+    const { selectedDate, tickets } = useBooking()
     const total = tickets.reduce((sum, ticket) => sum + ticket.price * ticket.quantity, 0)
     const hasTickets = tickets.some((ticket) => ticket.quantity > 0)
+    const pathname = usePathname()
 
     if (!hasTickets) {
         return null
@@ -56,16 +45,9 @@ export function Receipt({ selectedDate = new Date(), tickets = [], onNextStep, o
                     </div>
                 </div>
             </div>
-
-            <Link href={"/personalInfo"} legacyBehavior>
-                <button
-                    className="flex items-center justify-between px-6 font-bold text-xl w-full py-3 px-4 mt-4 rounded-sm transition-colors border-2 border-secondary cursor-pointer bg-navBg bg-secondary text-black hover:bg-navBg hover:text-secondary hover:border-secondary"
-                    onClick={onButtonClick || onNextStep}
-                >
-                    {buttonText}
-                    <FaArrowRightLong />
-                </button>
-            </Link>
+            {hasTickets && pathname !== "/personalInfo" && (
+                <Button buttonText="Next" destination="/personalInfo" />
+            )}
         </>
     )
 }

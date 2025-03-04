@@ -1,27 +1,10 @@
 "use client"
 
 import { FaMinus,FaPlus} from "react-icons/fa6";
-import { useState } from "react"
+import { useBooking } from "@/context/BookingContext";
 
-interface TicketType {
-    name: string
-    description: string
-    price: number
-    quantity: number
-}
-
-interface SelectTicketsProps {
-    selectedDate: Date
-    onTicketChange: (tickets: TicketType[]) => void
-}
-
-export function SelectTickets({ selectedDate, onTicketChange }: SelectTicketsProps) {
-    const [tickets, setTickets] = useState<TicketType[]>([
-        { name: "Adult", description: "18 to 59 years old", price: 30, quantity: 0 },
-        { name: "Child", description: "13 and under with adult", price: 0, quantity: 0 },
-        { name: "Senior", description: "60 and over with ID", price: 15, quantity: 0 },
-        { name: "Student", description: "With student ID", price: 15, quantity: 0 },
-    ])
+export function SelectTickets() {
+    const { tickets, setTickets } = useBooking()
 
     const updateTicketQuantity = (index: number, increment: boolean) => {
         const newTickets = [...tickets]
@@ -31,7 +14,6 @@ export function SelectTickets({ selectedDate, onTicketChange }: SelectTicketsPro
             newTickets[index].quantity -= 1
         }
         setTickets(newTickets)
-        onTicketChange(newTickets)
     }
 
     return (
@@ -57,6 +39,7 @@ export function SelectTickets({ selectedDate, onTicketChange }: SelectTicketsPro
                             <button
                                 onClick={() => updateTicketQuantity(index, true)}
                                 className="w-8 h-8 flex items-center justify-center rounded-full border border-secondary hover:bg-navBg hover:text-white bg-secondary text-black cursor-pointer"
+                                aria-label={`Increase ${ticket.name} quantity`}
                             >
                                 <FaPlus className="w-4 h-4" />
                             </button>

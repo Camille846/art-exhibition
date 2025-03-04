@@ -1,25 +1,31 @@
 'use client';
 import React from 'react';
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation"
+import { useBooking } from "@/context/BookingContext";
 
-interface ProgressIndicatorProps {
-	currentStep: number
-	onStepClick?: (step: number) => void
-}
+function ProgressIndicator() {
+	const router = useRouter()
+	const { currentStep } = useBooking()
 
-function ProgressIndicator({currentStep, onStepClick}: ProgressIndicatorProps) {
-   const steps = [
-	   {id: 1, step: 'Select date'},
-	   {id: 2, step: 'Select tickets'},
-	   {id: 3, step: 'Personal info'}
-   ]
+	const steps = [
+		{ id: 1, step: "select date", path: "/tickets" },
+		{ id: 2, step: "select tickets", path: "/tickets" },
+		{ id: 3, step: "personal info", path: "/personalInfo" },
+	]
+
+	const handleStepClick = (step: number, path: string) => {
+		if (step <= currentStep) {
+			router.push(path)
+		}
+	}
 
 	return (
 		<div className="flex items-center justify-end text-sm mt-2">
 			{steps.map((step, index) => (
 				<div key={step.id} className="flex items-center">
 					<button
-						onClick={() => onStepClick?.(step.id)}
+						onClick={() => handleStepClick(step.id, step.path)}
 						className={cn(
 							"mr-1 hover:text-secondary transition-colors cursor-pointer",
 							currentStep === step.id ? "text-white" : "text-[#F5F5F5B2]",

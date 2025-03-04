@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
+import { useBooking } from "@/context/BookingContext";
 
 type CalendarDate = {
 	date: Date;
@@ -10,12 +11,8 @@ type CalendarDate = {
 	isSelected: boolean;
 }
 
-interface CalendarProps {
-	selectedDate: Date;
-	onSelectDate: (date: Date) => void;
-}
-
-function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
+function Calendar() {
+	const { selectedDate, setSelectedDate } = useBooking()
 	const [currentMonth, setCurrentMonth] = useState(new Date());
 
 	const getDaysInMonth = (year: number, month: number) => {
@@ -85,7 +82,7 @@ function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
 	}
 
 	const handleSelectDate = (date: Date) => {
-		onSelectDate(date);
+		setSelectedDate(date);
 	}
 
 	const calendarDates = generateCalendarDaters();
