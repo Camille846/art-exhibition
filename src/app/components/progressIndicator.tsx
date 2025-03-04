@@ -21,7 +21,7 @@ function ProgressIndicator({currentStep, onStepClick}: ProgressIndicatorProps) {
 					<button
 						onClick={() => onStepClick?.(step.id)}
 						className={cn(
-							"mr-1 hover:text-yellow-400 transition-colors cursor-pointer",
+							"mr-1 hover:text-secondary transition-colors cursor-pointer",
 							currentStep === step.id ? "text-white" : "text-[#F5F5F5B2]",
 							step.id > currentStep && "pointer-events-none",
 						)}

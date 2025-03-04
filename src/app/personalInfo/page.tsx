@@ -36,7 +36,7 @@ function PersonalInfo() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        window.alert("Tickets bought!");
+        router.push("/confirmation");
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
