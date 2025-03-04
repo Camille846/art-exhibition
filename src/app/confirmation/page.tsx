@@ -28,7 +28,7 @@ export default function ConfirmationPage() {
                                     {ticketTypes.map((ticket) => (
                                         <div key={ticket.name} className="flex justify-between items-center mb-2">
                                             <div className="flex gap-2 items-center">
-                                                <span className="text-secondary font-abril text-4xl">{selectedDate.toLocaleDateString("en-US", { day: "numeric" })}</span>
+                                                <span className="text-secondary font-abril text-4xl">{selectedDate.toLocaleDateString("en-US", { day: "2-digit" })}</span>
                                                 <div className="flex flex-col border-l border-white pl-2">
                                                     <span className="text-white font-abril text-md">{selectedDate.toLocaleDateString("en-US", { month: "long" })}</span>
                                                     <span className="text-white font-abril text-md">{selectedDate.toLocaleDateString("en-US", { year: "numeric" })}</span>
