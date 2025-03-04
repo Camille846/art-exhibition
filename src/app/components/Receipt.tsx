@@ -15,6 +15,10 @@ export function Receipt({ selectedDate = new Date(), tickets = [], onNextStep }:
     const total = tickets.reduce((sum, ticket) => sum + ticket.price * ticket.quantity, 0)
     const hasTickets = tickets.some((ticket) => ticket.quantity > 0)
 
+    if (!hasTickets) {
+        return null
+    }
+
     return (
         <div className="w-full max-w-sm border-4 border-secondary p-6 rounded-sm">
             <h2 className="text-2xl mb-4 font-abril">
@@ -27,10 +31,10 @@ export function Receipt({ selectedDate = new Date(), tickets = [], onNextStep }:
                 {tickets.map(
                     (ticket) =>
                         ticket.quantity > 0 && (
-                            <div key={ticket.name} className="flex justify-between text-sm">
+                            <div key={ticket.name} className="flex justify-between">
                                 <span>
                                     {ticket.name}
-                                    <span className="text-gray-400 ml-2">
+                                    <span className="text-gray-400 ml-2 text-xs">
                                         {ticket.quantity}x ${ticket.price}
                                     </span>
                                 </span>
@@ -39,22 +43,15 @@ export function Receipt({ selectedDate = new Date(), tickets = [], onNextStep }:
                         ),
                 )}
 
-                {hasTickets && (
-                    <>
-                        <div className="border-t border-gray-800 my-4" />
-                        <div className="flex justify-between font-semibold">
-                            <span>Total</span>
-                            <span className="text-secondary">${total}</span>
-                        </div>
-                    </>
-                )}
+                <div className="border-t border-gray-800 my-4" />
+                <div className="flex justify-between font-semibold text-lg">
+                    <span>Total</span>
+                    <span className="text-secondary">${total}</span>
+                </div>
             </div>
 
             <button
-                className={`w-full py-3 px-4 rounded-lg font-semibold transition-colors border-2 border-secondary cursor-pointer bg-navBg ${
-                    hasTickets ? "bg-secondary text-black hover:bg-navBg hover:text-secondary" : "bg-gray-800 text-gray-400 cursor-not-allowed"
-                }`}
-                disabled={!hasTickets}
+                className="w-full py-3 px-4 rounded-lg font-semibold transition-colors border-2 border-secondary cursor-pointer bg-navBg bg-secondary text-black hover:bg-navBg hover:text-secondary hover:border-secondary"
                 onClick={onNextStep}
             >
                 Next
