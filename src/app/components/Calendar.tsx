@@ -16,7 +16,7 @@ interface CalendarProps {
 }
 
 function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
-	const [currentMonth, setCurrentMonth] = useState(new Date(2025, 2, 1));
+	const [currentMonth, setCurrentMonth] = useState(new Date());
 
 	const getDaysInMonth = (year: number, month: number) => {
 		return new Date(year, month + 1, 0).getDate();
@@ -32,12 +32,11 @@ function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
 		const daysInMonth = getDaysInMonth(year, month);
 		const firstDayOfMonth = getFirstDayOfMonth(year, month);
 
-		const firstDayIndex = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
 		const daysInPrevMonth = getDaysInMonth(year, month - 1);
 
 		const calendarDates: CalendarDate[] = [];
 
-		for (let i = firstDayIndex - 1; i >= 0; i--) {
+		for (let i = firstDayOfMonth - 1; i >= 0; i--) {
 			calendarDates.push({
 				date: new Date(year, month - 1, daysInPrevMonth - i),
 				isCurrentMonth: false,
@@ -90,7 +89,7 @@ function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
 	}
 
 	const calendarDates = generateCalendarDaters();
-	const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+	const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 	const formatMonthYear = (date: Date) => {
 		return date.toLocaleDateString("en-US", { month: 'long', year: 'numeric' }).toUpperCase();
@@ -131,8 +130,10 @@ function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
 								!calendarDate.isCurrentMonth && 'text-gray-400 border-[#5D5D6D] cursor-default',
 								calendarDate.isSelected && 'bg-secondary text-black font-bold border-secondary',
 								!calendarDate.isSelected && 'hover:bg-secondary hover:text-black hover:border-secondary',
+								(calendarDate.date.getDay() === 0 || calendarDate.date.getDay() === 6) && 'text-gray-400 border-[#5D5D6D] cursor-default'
 							)}
 							onClick={() => handleSelectDate(calendarDate.date)}
+							disabled={calendarDate.date.getDay() === 0 || calendarDate.date.getDay() === 6}
 						>
 							{dayNumber}
 						</button>

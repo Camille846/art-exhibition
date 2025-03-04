@@ -14,7 +14,7 @@ interface TicketType {
 }
 
 export default function TicketsPage() {
-    const [selectedDate, setSelectedDate] = useState(new Date(2025, 2, 1));
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [tickets, setTickets] = useState<TicketType[]>([
         { name: "Adult", description: "18 to 59 years old", price: 30, quantity: 0 },
         { name: "Child", description: "13 and under with adult", price: 0, quantity: 0 },
