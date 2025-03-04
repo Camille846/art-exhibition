@@ -1,0 +1,66 @@
+interface TicketType {
+    name: string
+    description: string
+    price: number
+    quantity: number
+}
+
+interface ReceiptProps {
+    selectedDate?: Date
+    tickets: TicketType[]
+    onNextStep: () => void
+}
+
+export function Receipt({ selectedDate = new Date(), tickets = [], onNextStep }: ReceiptProps) {
+    const total = tickets.reduce((sum, ticket) => sum + ticket.price * ticket.quantity, 0)
+    const hasTickets = tickets.some((ticket) => ticket.quantity > 0)
+
+    return (
+        <div className="w-full max-w-sm border-4 border-secondary p-6 rounded-sm">
+            <h2 className="text-2xl mb-4 font-abril">
+                Your tickets for
+                <br />
+                {selectedDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+            </h2>
+
+            <div className="space-y-2 mb-6">
+                {tickets.map(
+                    (ticket) =>
+                        ticket.quantity > 0 && (
+                            <div key={ticket.name} className="flex justify-between text-sm">
+                                <span>
+                                    {ticket.name}
+                                    <span className="text-gray-400 ml-2">
+                                        {ticket.quantity}x ${ticket.price}
+                                    </span>
+                                </span>
+                                <span>${ticket.price * ticket.quantity}</span>
+                            </div>
+                        ),
+                )}
+
+                {hasTickets && (
+                    <>
+                        <div className="border-t border-gray-800 my-4" />
+                        <div className="flex justify-between font-semibold">
+                            <span>Total</span>
+                            <span className="text-secondary">${total}</span>
+                        </div>
+                    </>
+                )}
+            </div>
+
+            <button
+                className={`w-full py-3 px-4 rounded-lg font-semibold transition-colors border-2 border-secondary cursor-pointer bg-navBg ${
+                    hasTickets ? "bg-secondary text-black hover:bg-navBg hover:text-secondary" : "bg-gray-800 text-gray-400 cursor-not-allowed"
+                }`}
+                disabled={!hasTickets}
+                onClick={onNextStep}
+            >
+                Next
+            </button>
+        </div>
+    )
+}
+
+export default Receipt

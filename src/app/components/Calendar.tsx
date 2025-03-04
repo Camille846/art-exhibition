@@ -1,18 +1,22 @@
 'use client';
 import React, { useState } from 'react';
-import {FaChevronLeft, FaChevronRight} from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 
 type CalendarDate = {
-	date: Date
-	isCurrentMonth: boolean
-	isToday: boolean
-	isSelected: boolean
+	date: Date;
+	isCurrentMonth: boolean;
+	isToday: boolean;
+	isSelected: boolean;
 }
 
-function Calendar() {
-    const [currentMonth, setCurrentMonth] = useState(new Date(2025, 2, 1));
-	const [selectedDate, setSelectedDate] = useState(new Date(2025, 2, 1));
+interface CalendarProps {
+	selectedDate: Date;
+	onSelectDate: (date: Date) => void;
+}
+
+function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
+	const [currentMonth, setCurrentMonth] = useState(new Date(2025, 2, 1));
 
 	const getDaysInMonth = (year: number, month: number) => {
 		return new Date(year, month + 1, 0).getDate();
@@ -44,7 +48,7 @@ function Calendar() {
 
 		const today = new Date();
 		for (let i = 1; i <= daysInMonth; i++) {
-			const date = new Date(year, month, i)
+			const date = new Date(year, month, i);
 			calendarDates.push({
 				date,
 				isCurrentMonth: true,
@@ -61,7 +65,7 @@ function Calendar() {
 
 		const remainingDays = 42 - calendarDates.length;
 		for (let i = 1; i <= remainingDays; i++) {
-			const date = new Date(year, month + 1, i)
+			const date = new Date(year, month + 1, i);
 			calendarDates.push({
 				date,
 				isCurrentMonth: false,
@@ -69,7 +73,6 @@ function Calendar() {
 				isSelected: false,
 			});
 		}
-
 
 		return calendarDates;
 	}
@@ -83,7 +86,7 @@ function Calendar() {
 	}
 
 	const handleSelectDate = (date: Date) => {
-		setSelectedDate(date);
+		onSelectDate(date);
 	}
 
 	const calendarDates = generateCalendarDaters();
@@ -94,7 +97,7 @@ function Calendar() {
 	}
 
 	const formatSeletectedDate = (date: Date) => {
-		return date.toLocaleDateString("en-US", { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+		return date.toLocaleDateString("en-US", { month: 'long', day: 'numeric', year: 'numeric' });
 	}
 
 	return (
@@ -103,10 +106,10 @@ function Calendar() {
 				<div className="flex items-center justify-between">
 					<h3 className="text-lg font-medium">{formatMonthYear(currentMonth)}</h3>
 					<div className="flex space-x-2">
-						<button className="p-1 rounded-full hover:bg-grey text-white hover:text-black cursor-pointer" onClick={handlePrevMonth}>
+						<button className="p-1 rounded-full hover:bg-secondary text-white hover:text-black cursor-pointer" onClick={handlePrevMonth}>
 							<FaChevronLeft className="h-5 w-5"/>
 						</button>
-						<button className="p-1 rounded-full hover:bg-grey text-white hover:text-black cursor-pointer" onClick={handleNextMonth}>
+						<button className="p-1 rounded-full hover:bg-secondary text-white hover:text-black cursor-pointer" onClick={handleNextMonth}>
 							<FaChevronRight className="h-5 w-5"/>
 						</button>
 					</div>
@@ -127,7 +130,7 @@ function Calendar() {
 								"h-10 w-10 rounded-full flex items-center justify-center text-center text-sm cursor-pointer border-2 border-white border-solid",
 								!calendarDate.isCurrentMonth && 'text-gray-400 border-[#5D5D6D] cursor-default',
 								calendarDate.isSelected && 'bg-secondary text-black font-bold border-secondary',
-								!calendarDate.isSelected && 'hover:bg-secondary hover:text-black',
+								!calendarDate.isSelected && 'hover:bg-secondary hover:text-black hover:border-secondary',
 							)}
 							onClick={() => handleSelectDate(calendarDate.date)}
 						>
@@ -136,7 +139,7 @@ function Calendar() {
 					)
 				})}
 			</div>
-			<div className="mt-6 text-secondary text-xl font-medium font-poppins">
+			<div className="mt-6 text-secondary text-xl font-medium font-abril text-end">
 				{formatSeletectedDate(selectedDate)}
 			</div>
 		</div>
