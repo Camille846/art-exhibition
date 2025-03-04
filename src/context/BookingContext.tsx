@@ -16,6 +16,12 @@ interface BookingContextType {
     setTickets: (tickets: TicketType[]) => void
     currentStep: number
     setCurrentStep: (step: number) => void
+    formData: {
+        firstName: string;
+        lastName: string;
+        country: string;
+        email: string;
+    };
 }
 
 const defaultTickets: TicketType[] = [
@@ -41,6 +47,12 @@ export function BookingProvider({ children }: { children: ReactNode }) {
                 setTickets,
                 currentStep,
                 setCurrentStep,
+                formData: {
+                    firstName: "",
+                    lastName: "",
+                    country: "",
+                    email: "",
+                },
             }}
         >
             {children}
