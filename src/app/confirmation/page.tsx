@@ -24,21 +24,23 @@ export default function ConfirmationPage() {
                                 <img src={'/confirmed.png'} alt="confirmed" className="w-full h-[300px] rounded-lg mb-4" />
 
                                 {/* Dados do Ingresso */}
-                                <div>
-                                    {ticketTypes.map((ticket) => (
-                                        <div key={ticket.name} className="flex justify-between items-center mb-2">
-                                            <div className="flex gap-2 items-center">
-                                                <span className="text-secondary font-abril text-4xl">{selectedDate.toLocaleDateString("en-US", { day: "2-digit" })}</span>
-                                                <div className="flex flex-col border-l border-white pl-2">
-                                                    <span className="text-white font-abril text-md">{selectedDate.toLocaleDateString("en-US", { month: "long" })}</span>
-                                                    <span className="text-white font-abril text-md">{selectedDate.toLocaleDateString("en-US", { year: "numeric" })}</span>
+                                <div className="flex justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-secondary font-abril text-4xl">{selectedDate.toLocaleDateString("en-US", { day: "2-digit" })}</span>
+                                        <div className="flex flex-col border-l border-white pl-2">
+                                            <span className="text-white font-abril text-md">{selectedDate.toLocaleDateString("en-US", { month: "long" })}</span>
+                                            <span className="text-white font-abril text-md">{selectedDate.toLocaleDateString("en-US", { year: "numeric" })}</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        {ticketTypes.map((ticket) => (
+                                            <div key={ticket.name} className="flex justify-end">
+                                                <div className="text-right text-grey font-medium text-lg">
+                                                    <span className="block">{ticket.name} x {ticket.quantity}</span>
                                                 </div>
                                             </div>
-                                            <div className="text-right text-grey font-medium text-lg">
-                                                <span className="block">{ticket.name} x {ticket.quantity}</span>
-                                            </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
 
 
