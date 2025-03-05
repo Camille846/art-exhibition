@@ -2,12 +2,19 @@
 import { useBooking } from "@/context/BookingContext";
 import Button from "@/app/components/Button";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function Receipt() {
     const { selectedDate, tickets } = useBooking()
+    const [displayedDate, setDisplayedDate] = useState(selectedDate);
     const total = tickets.reduce((sum, ticket) => sum + ticket.price * ticket.quantity, 0)
     const hasTickets = tickets.some((ticket) => ticket.quantity > 0)
     const pathname = usePathname()
+
+    useEffect(() => {
+        setDisplayedDate(selectedDate);
+    }, [selectedDate]);
+
 
     if (!hasTickets) {
         return null
@@ -19,7 +26,7 @@ export function Receipt() {
                 <h2 className="text-2xl mb-4 font-abril">
                     Your tickets for
                     <br />
-                    {selectedDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                    {displayedDate.toLocaleDateString("en-US", { month: "long", day: "2-digit", year: "numeric" })}
                 </h2>
 
                 <div className="space-y-2 mb-6">

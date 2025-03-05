@@ -3,47 +3,32 @@
 import type React from "react"
 
 import { useRouter } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import Receipt from "@/app/components/Receipt";
 import ProgressIndicator from "@/app/components/progressIndicator";
 import NavBar from "@/app/components/NavBar";
 import { useBooking } from "@/context/BookingContext";
 import Button from "@/app/components/Button";
 
-interface PersonalInfoFormData {
-    firstName: string
-    lastName: string
-    country: string
-    email: string
-}
-
 function PersonalInfo() {
     const router = useRouter();
-    const { setCurrentStep } = useBooking()
+    const { setCurrentStep, personalInfo, setPersonalInfo } = useBooking()
 
     useEffect(() => {
         setCurrentStep(3)
     }, [setCurrentStep])
 
-    const [formData, setFormData] = useState<PersonalInfoFormData>({
-        firstName: "",
-        lastName: "",
-        country: "",
-        email: "",
-    });
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Form submitted with data:", formData);
         router.push("/confirmation");
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
+        setPersonalInfo({
+            ...personalInfo,
             [name]: value,
-        }));
+        })
         console.log(`Input changed: ${name} = ${value}`);
     };
 
@@ -71,7 +56,7 @@ function PersonalInfo() {
                                         type="text"
                                         id="firstName"
                                         name="firstName"
-                                        value={formData.firstName}
+                                        value={personalInfo.firstName}
                                         onChange={handleInputChange}
                                         className="w-full bg-transparent border-b border-grey py-2 focus:outline-none focus:border-secondary transition-colors"
                                         required
@@ -85,7 +70,7 @@ function PersonalInfo() {
                                         type="text"
                                         id="lastName"
                                         name="lastName"
-                                        value={formData.lastName}
+                                        value={personalInfo.lastName}
                                         onChange={handleInputChange}
                                         className="w-full bg-transparent border-b border-grey py-2 focus:outline-none focus:border-secondary transition-colors"
                                         required
@@ -100,7 +85,7 @@ function PersonalInfo() {
                                 <select
                                     id="country"
                                     name="country"
-                                    value={formData.country}
+                                    value={personalInfo.country}
                                     onChange={handleInputChange}
                                     className="w-full bg-black border-b border-grey py-2 focus:outline-none focus:border-secondary transition-colors"
                                     required
@@ -123,7 +108,7 @@ function PersonalInfo() {
                                     type="email"
                                     id="email"
                                     name="email"
-                                    value={formData.email}
+                                    value={personalInfo.email}
                                     onChange={handleInputChange}
                                     className="w-full border-b border-grey py-2 focus:outline-none focus:border-secondary transition-colors"
                                     required
