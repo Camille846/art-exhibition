@@ -9,7 +9,7 @@ export default function CollectionsPage() {
     return (
         <>
         <NavBar/>
-        <div className="mx-[90px] my-20">
+        <div className="mx-[30px] lg:mx-[90px] my-20">
             <div>
                 <h1 className="font-abril text-white text-3xl sm:text-4xl lg:text-5xl 2xl:text-7xl">Discover more
                     about our exhibition</h1>
