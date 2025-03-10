@@ -52,7 +52,9 @@ export function Receipt({ onNext, step }: { onNext?: () => void, step: number })
                     <button
                         onClick={() => {
                             setIsClicked(true);
-                            onNext && onNext();
+                            if (onNext) {
+                                onNext();
+                            }
                         }}
                         className="mt-4 bg-secondary text-black py-2 px-4 flex items-center justify-between px-6 font-bold text-xl w-full py-3 mt-4 rounded-sm transition-colors border-2 border-secondary cursor-pointer bg-navBg bg-secondary text-black hover:bg-navBg hover:text-secondary hover:border-secondary"
                     >
