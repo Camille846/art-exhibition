@@ -1,23 +1,20 @@
 'use client'
 import { useBooking } from "@/context/BookingContext";
-import Button from "@/app/components/Button";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export function Receipt() {
-    const { selectedDate, tickets } = useBooking()
+export function Receipt({ onNext, step }: { onNext?: () => void, step: number }) {
+    const { selectedDate, tickets } = useBooking();
     const [displayedDate, setDisplayedDate] = useState(selectedDate);
-    const total = tickets.reduce((sum, ticket) => sum + ticket.price * ticket.quantity, 0)
-    const hasTickets = tickets.some((ticket) => ticket.quantity > 0)
-    const pathname = usePathname()
+    const [isClicked, setIsClicked] = useState(false);
+    const total = tickets.reduce((sum, ticket) => sum + ticket.price * ticket.quantity, 0);
+    const hasTickets = tickets.some((ticket) => ticket.quantity > 0);
 
     useEffect(() => {
         setDisplayedDate(selectedDate);
     }, [selectedDate]);
 
-
     if (!hasTickets) {
-        return null
+        return null;
     }
 
     return (
@@ -51,12 +48,20 @@ export function Receipt() {
                         <span className="text-secondary">${total}</span>
                     </div>
                 </div>
+                {step !== 3 && !isClicked && (
+                    <button
+                        onClick={() => {
+                            setIsClicked(true);
+                            onNext && onNext();
+                        }}
+                        className="mt-4 bg-secondary text-black py-2 px-4 flex items-center justify-between px-6 font-bold text-xl w-full py-3 mt-4 rounded-sm transition-colors border-2 border-secondary cursor-pointer bg-navBg bg-secondary text-black hover:bg-navBg hover:text-secondary hover:border-secondary"
+                    >
+                        Next
+                    </button>
+                )}
             </div>
-            {hasTickets && pathname !== "/personalInfo" && (
-                <Button buttonText="Next" destination="/personalInfo" />
-            )}
         </>
-    )
+    );
 }
 
-export default Receipt
+export default Receipt;

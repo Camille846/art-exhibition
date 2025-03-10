@@ -1,18 +1,24 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from "@/app/components/NavBar";
 import Calendar from "@/app/components/Calendar";
 import ProgressIndicator from "@/app/components/progressIndicator";
 import SelectTickets from "@/app/components/SelectTickets";
 import Receipt from "@/app/components/Receipt";
+import PersonalInfoComponent from "@/app/components/personal-info";
 import { useBooking } from "@/context/BookingContext";
 
 export default function TicketsPage() {
-    const { setCurrentStep } = useBooking()
+    const { setCurrentStep } = useBooking();
+    const [step, setStep] = useState(1);
 
     useEffect(() => {
-        setCurrentStep(1)
-    }, [setCurrentStep])
+        setCurrentStep(step);
+    }, [setCurrentStep, step]);
+
+    const handleNextStep = () => {
+        setStep(step + 1);
+    };
 
     return (
         <>
@@ -23,23 +29,27 @@ export default function TicketsPage() {
                     <p className="text-gray-400 pb-4 mb-3 mt-3">Opening hours: weekdays until 5:30p.m.</p>
                     <div className="w-full h-[1px] bg-[#F5F5F5B2]"></div>
 
-                    <ProgressIndicator  />
+                    <ProgressIndicator />
 
-                    <div className="mt-8 grid lg:grid-cols-3 gap-8">
-                        <div>
-                            <h2 className="text-3xl mb-2 font-abril">Select date</h2>
-                            <p className="text-gray-400 mb-6">Select a day for your visit</p>
-                            <Calendar />
-                        </div>
+                    {step === 1 && (
+                        <div className="mt-8 grid lg:grid-cols-3 gap-8">
+                            <div>
+                                <h2 className="text-3xl mb-2 font-abril">Select date</h2>
+                                <p className="text-gray-400 mb-6">Select a day for your visit</p>
+                                <Calendar />
+                            </div>
 
-                        <div>
-                            <SelectTickets />
-                        </div>
+                            <div>
+                                <SelectTickets />
+                            </div>
 
-                        <div>
-                            <Receipt  />
+                            <div>
+                                <Receipt onNext={handleNextStep} step={step} />
+                            </div>
                         </div>
-                    </div>
+                    )}
+
+                    {step === 2 && <PersonalInfoComponent />}
                 </div>
             </div>
         </>

@@ -5,18 +5,16 @@ import type React from "react"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import Receipt from "@/app/components/Receipt";
-import ProgressIndicator from "@/app/components/progressIndicator";
-import NavBar from "@/app/components/NavBar";
 import { useBooking } from "@/context/BookingContext";
 import Button from "@/app/components/Button";
 
-function PersonalInfo() {
+function PersonalInfoComponent() {
     const router = useRouter();
-    const { setCurrentStep, personalInfo, setPersonalInfo } = useBooking()
+    const { setCurrentStep, personalInfo, setPersonalInfo } = useBooking();
 
     useEffect(() => {
-        setCurrentStep(3)
-    }, [setCurrentStep])
+        setCurrentStep(3);
+    }, [setCurrentStep]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,21 +26,14 @@ function PersonalInfo() {
         setPersonalInfo({
             ...personalInfo,
             [name]: value,
-        })
+        });
         console.log(`Input changed: ${name} = ${value}`);
     };
 
-
     return (
         <div className="min-h-screen bg-black text-white">
-            <NavBar />
 
             <div className="max-w-7xl mx-auto p-4 md:p-8">
-                <h1 className="text-5xl font-bold mb-2">Get tickets</h1>
-                <p className="text-gray-400 border-b border-grey pb-4 mb-6">Opening hours: weekdays until 5:30 p.m.</p>
-
-                <ProgressIndicator />
-
                 <div className="mt-8 grid lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2">
                         <h2 className="text-3xl mb-6 font-abril">Your personal information</h2>
@@ -118,7 +109,7 @@ function PersonalInfo() {
                     </div>
 
                     <div>
-                        <Receipt  />
+                        <Receipt step={3} />
                         <Button buttonText="Buy Tickets" destination="/confirmation" />
                     </div>
                 </div>
@@ -127,4 +118,4 @@ function PersonalInfo() {
     );
 }
 
-export default PersonalInfo;
+export default PersonalInfoComponent;

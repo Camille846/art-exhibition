@@ -1,4 +1,5 @@
 import { BookingProvider } from '@/context/BookingContext';
+import Receipt from "@/app/components/Receipt";
 
 export default function TicketsLayout({
                                          children,
@@ -6,6 +7,8 @@ export default function TicketsLayout({
     children: React.ReactNode;
 }) {
     return (
-        <BookingProvider>{children}</BookingProvider>
+        <BookingProvider>
+            {children}
+        </BookingProvider>
     )
 }

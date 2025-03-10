@@ -16,7 +16,6 @@ interface PersonalInfo {
     email: string
 }
 
-
 interface BookingContextType {
     selectedDate: Date
     setSelectedDate: (date: Date) => void

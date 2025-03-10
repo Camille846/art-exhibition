@@ -41,7 +41,7 @@ function MainPage() {
 
     return (
         <div
-            className="relative flex flex-col items-center justify-center lg:h-[calc(100vh-64px)] bg-no-repeat bg-cover bg-center lg:my-0 mx:0 h-screen"
+            className="relative flex flex-col items-center justify-center lg:h-[calc(100vh-64px)] bg-no-repeat bg-cover bg-center lg:my-0 mx:0"
             style={{ backgroundImage: `url(${selectedImage.src})` }}
         >
             <div className="absolute inset-0 bg-[#D9D9D94D]"></div>

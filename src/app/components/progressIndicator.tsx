@@ -11,7 +11,7 @@ function ProgressIndicator() {
 	const steps = [
 		{ id: 1, step: "select date", path: "/tickets" },
 		{ id: 2, step: "select tickets", path: "/tickets" },
-		{ id: 3, step: "personal info", path: "/personalInfo" },
+		{ id: 3, step: "personal info", path: "/tickets/personalInfo" },
 	]
 
 	const handleStepClick = (step: number, path: string) => {
